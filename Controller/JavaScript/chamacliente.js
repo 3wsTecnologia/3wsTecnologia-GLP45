@@ -6,7 +6,7 @@ function chamarPhpAjax() {
    var fone = document.getElementById("fone").value;
    $.ajax({
       type: "POST",
-      url:"http://localhost/Controller/Form/pesqcli.php",
+      url:"http://192.168.25.119:80/Controller/Form/pesqcli.php",
       data: { pesqnome: nome, pesqrua: rua, pesqnumero: numero , pesqfone: fone},
       complete: function (response) {
          $("#pesqcliente").html(response.responseText);

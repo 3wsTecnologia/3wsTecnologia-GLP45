@@ -35,7 +35,7 @@ function testeOnclick()
           {
                 exit("<script>alert('Informe o endereço!')</script>");
           }
-          else if ($nome != "")
+          else if ($nome != "" && $rua == "")
           {
             exit("<script>alert('Informe o endereço!')</script>");
           }

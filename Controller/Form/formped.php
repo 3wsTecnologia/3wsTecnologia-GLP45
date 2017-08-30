@@ -27,9 +27,11 @@
             echo "Falha: " . $e->getMessage();
             exit();
         }
-        
-        $sql = "INSERT INTO pedido (cliente, formapago, produto, quantidade)
-                VALUES (?, ?, ?, ?)";
+        date_default_timezone_set('America/Sao_Paulo');
+        $date = date('Y-m-d H:i');
+
+        $sql = "INSERT INTO pedido (cliente, formapago, produto, quantidade, Dt_Emite, Hr_Emite)
+                VALUES (?, ?, ?, ?, ?, ?)";
                                 
         $stmt = $connection->prepare($sql);
         
@@ -37,6 +39,8 @@
         $stmt->bindParam(2, $_POST["condicao"]);
         $stmt->bindParam(3, $_POST["glp"]);
         $stmt->bindParam(4, $_POST["quant"]);
+        $stmt->bindParam(5, $date);
+        $stmt->bindParam(6, $date);
         
         $stmt->execute();
         
