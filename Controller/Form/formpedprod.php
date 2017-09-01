@@ -8,12 +8,5 @@
 	{
 		echo "Quantidade invalida!";
 	}
-	else if(!isset($_POST["condicao"]) || ($_POST["condicao"] == 1))
-	{
-		echo "Necessário informar a forma de pagamento!";
-	}
-	else
-	{
-	}
-
+	echo $_POST["quant"];
 ?>

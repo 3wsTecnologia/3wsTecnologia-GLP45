@@ -1,7 +1,4 @@
 
-	<select name="condicao">;
-         <option value="1">Selecione a forma de pagamento:</option>;
-
 <?php
             require __DIR__ . "/../Msql/conn.php";
         
@@ -14,5 +11,4 @@
                     echo "<option value='" . $registro->tipo . "'> " . $registro->nome . " </option>";
                 }
             }
-    echo	"</select>";
 ?>

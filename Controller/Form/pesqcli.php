@@ -1,58 +1,30 @@
 <?php
-function testeOnclick()
+function pesqclientes()
 
 {
 
   echo "<table>";
-          echo "<td></td><td><b>Nome</b></td><td><b>Endereco</b></td><td><b>Numero</b></td><td><b>Fone</b></td><td><b>Ultima Compra</b></td>";
+          echo "<td></td><td><b>Nome</b></td><td><b>Endereco</b></td><td><b>Numero</b></td><td><b>Fone</b></td><td><b>CNPJ/CPF</b></td>";
 
     require __DIR__ . "/../Msql/conn.php";
     
+    $cnpj = $_POST['pesqcnpj'];
     $nome = $_POST['pesqnome'];
-    $rua = $_POST['pesqrua'];
-    $numero = $_POST['pesqnumero'];
-    $telefone = $_POST['pesqfone'];
-    $strSql = "SELECT CODIGO, Nome, Endereco, Numero, Fone, UltimaCompra FROM Clientes WHERE";
+    $strSql = "SELECT CODIGO, Nome, Endereco, Numero, Fone, CNPJ FROM Clientes WHERE";
 
+    if ($cnpj != "")
+    {
+          $strSql = $strSql . " CNPJ LIKE '" . $cnpj ."%'";
+    }
     if ($nome != "")
     {
-          $strSql = $strSql . " Nome LIKE '" . $nome ."%'";
-    }
-    if ($rua != "")
-    {
-          if ($nome == "")
+          if ($cnpj == "")
           {
-                $strSql = $strSql . " Endereco LIKE '" . $rua ."%'";
+                $strSql = $strSql . " Nome LIKE '" . $nome ."%'";
           }
           else
           {
-                $strSql = $strSql . " AND Endereco Like '" . $rua ."%'";
-          }
-    }
-    if ($numero != "")
-    {                        
-          if ($rua == "")
-          {
-                exit("<script>alert('Informe o endereço!')</script>");
-          }
-          else if ($nome != "" && $rua == "")
-          {
-            exit("<script>alert('Informe o endereço!')</script>");
-          }
-          else
-          {
-                $strSql = $strSql . " AND Numero Like '" . $numero ."%'";
-          }
-    }
-    if ($telefone != "")
-    {
-          if ($nome == "" && $rua == "" && $numero == "")
-          {
-                $strSql = $strSql . " Fone LIKE '" . $telefone ."%'";
-          }
-          else
-          {
-                $strSql = $strSql . " AND Fone Like '" . $telefone ."%'";
+                $strSql = $strSql . " AND Nome Like '" . $nome ."%'";
           }
     }
 
@@ -62,11 +34,11 @@ function testeOnclick()
         {
             while( $registro = $rs->fetch(PDO::FETCH_OBJ) )
             {
-                 echo "<tr><td><input type='radio' name='cliente' value='" . $registro->CODIGO . "'> </td><td>" . $registro->Nome ."</td><td>" . $registro->Endereco ."</td><td>" . $registro->Numero . "</td><td>" . $registro->Fone ."</td><td>" . $registro->UltimaCompra . "</td></tr>";
+                 echo "<tr><td><input type='radio' id='cliente' name='cliente' value='" . $registro->CODIGO . "' onclick='return VprodutoDif()'> </td><td>" . $registro->Nome ."</td><td>" . $registro->Endereco ."</td><td>" . $registro->Numero . "</td><td>" . $registro->Fone ."</td><td>" . $registro->CNPJ . "</td></tr>";
             }
           echo "</table>";
         }
 }
 
-testeOnclick();
+pesqclientes();
 ?>

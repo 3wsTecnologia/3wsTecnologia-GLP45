@@ -1,21 +1,22 @@
 <?php
 
-    if(!isset($_POST["glp"]))
+    if(!isset($_POST["cliente"]))
 	{
-		echo "Necessário selecionar um produto!";
+		echo "<script> alert('Informe o cliente!'); window.history.back()</script>";
+	}
+	else if(!isset($_POST["glp"]))
+	{
+		echo "<script> alert('Selecione um produto!'); window.history.back()</script>";
 	}
 	else if(!isset($_POST["quant"]) || (strlen($_POST["quant"]) > 2) || (!filter_var($_POST["quant"], FILTER_VALIDATE_INT)))
 	{
-		echo "Quantidade invalida!";
+		echo "<script> alert('Digite a quantidade!'); window.history.back()</script>";
 	}
 	else if(!isset($_POST["condicao"]) || ($_POST["condicao"] == 1))
 	{
-		echo "Necessário informar a forma de pagamento!";
+		echo "<script> alert('Necessário informar a forma de pagamento!'); window.history.back()</script>";
 	}
-	else if(!isset($_POST["cliente"]))
-	{
-		echo "Necessário informar um cliente!";
-	}
+	
 	else
 	{
 		try
@@ -49,7 +50,8 @@
             $resultado = "Erro código " . $stmt->errorCode() . ": ";
             $resultado .= implode(",", $stmt->errorInfo());
         }
-        
+        echo "<script> alert('Dados gerados com sucesso!') </script>";
+		echo "<script>window.location.replace('http://". $_SERVER['SERVER_ADDR'] ."')</script>";
     }
 
 ?>
